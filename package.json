@@ -1,0 +1,12 @@
+{
+  "name": "ospo-accessibility-demo",
+  "private": true,
+  "description": "Deliberately inaccessible demo page and its fixes, with automated accessibility checks.",
+  "scripts": {
+    "test:a11y": "playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1"
+  }
+}

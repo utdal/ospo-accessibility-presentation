@@ -1,0 +1,31 @@
+name: Accessibility issue
+description: Report a barrier that makes something hard or impossible to use.
+labels: ["accessibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting this. You don't need to explain why you need something to be accessible.
+  - type: textarea
+    id: barrier
+    attributes:
+      label: What happened?
+      description: What were you trying to do, and what got in the way?
+    validations:
+      required: true
+  - type: textarea
+    id: location
+    attributes:
+      label: Where is the problem?
+      description: The page, screen, or component, and any steps to reach it.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: What were you using? (optional)
+      description: For example, your browser, operating system, screen reader, magnification, voice control, or keyboard only.
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen? (optional)
