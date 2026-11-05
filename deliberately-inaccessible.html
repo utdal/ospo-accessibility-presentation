@@ -1,0 +1,365 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>OpenLab Project</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #777;
+      background: #fff;
+    }
+
+    .header {
+      padding: 18px 30px;
+      color: white;
+      background: #154734;
+    }
+
+    .logo {
+      display: inline-block;
+      margin-right: 40px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .nav {
+      display: inline-block;
+    }
+
+    .nav-item {
+      display: inline-block;
+      margin-right: 18px;
+      cursor: pointer;
+    }
+
+    .nav-item:hover {
+      text-decoration: underline;
+    }
+
+    .layout {
+      display: flex;
+      gap: 32px;
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .main {
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 250px;
+      padding: 18px;
+      background: #f2f2f2;
+    }
+
+    .title {
+      color: #154734;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .section-title {
+      margin-top: 28px;
+      color: #154734;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-right: 5px;
+      border-radius: 50%;
+      background: #35a853;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    input,
+    select,
+    textarea {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #aaa;
+    }
+
+    textarea {
+      height: 100px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    .button:focus {
+      outline: none;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 18px;
+      color: white;
+      background: #e87500;
+      cursor: pointer;
+    }
+
+    .secondary {
+      color: #777;
+      background: #ddd;
+    }
+
+    .error {
+      display: none;
+      margin: 10px 0;
+      color: #d7191c;
+    }
+
+    .help {
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    .modal {
+      width: 420px;
+      max-width: 85%;
+      padding: 24px;
+      background: white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .close {
+      float: right;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    a {
+      color: #777;
+    }
+
+    .small-text {
+      font-size: 11px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- No skip link is provided. -->
+
+  <div class="header">
+    <div class="logo">OpenLab</div>
+
+    <!-- These navigation controls are nonsemantic div elements. -->
+    <div class="nav">
+      <div class="nav-item" onclick="goTo('project')">Project</div>
+      <div class="nav-item" onclick="goTo('docs')">Documentation</div>
+      <div class="nav-item" onclick="goTo('issues')">Issues</div>
+      <div class="nav-item" onclick="goTo('contribute')">Contribute</div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="main">
+      <!-- Visual headings are divs, not actual heading elements. -->
+      <div class="title">OpenLab Data Toolkit</div>
+
+      <p>
+        OpenLab is an open source toolkit for organizing and sharing
+        university research data.
+      </p>
+
+      <p>
+        New contributors should
+        <a href="contributing.html">click here</a>
+        before submitting a change.
+      </p>
+
+      <div class="section-title">Project status</div>
+
+      <!-- Status is communicated through color alone. -->
+      <p>
+        API <span class="status-dot"></span>
+        Documentation <span class="status-dot" style="background:#d7191c;"></span>
+      </p>
+
+      <div class="section-title">Submit a contribution</div>
+
+      <p>Fields marked in red are required.</p>
+
+      <form id="contribution-form">
+        <!-- Placeholder text is used instead of a label. -->
+        <div class="field">
+          <input
+            id="contributor-name"
+            type="text"
+            placeholder="Your name"
+            style="border-color: red;"
+          >
+        </div>
+
+        <!-- This text looks like a label but is not associated with the field. -->
+        <div class="field">
+          <div>Email address</div>
+          <input id="email" type="text">
+          <div class="help">
+            We may contact you if the maintainers have questions.
+          </div>
+        </div>
+
+        <!-- No accessible label identifies this select element. -->
+        <div class="field">
+          <select id="contribution-type">
+            <option value="">Select contribution type</option>
+            <option>Bug fix</option>
+            <option>Documentation</option>
+            <option>New feature</option>
+            <option>Accessibility improvement</option>
+          </select>
+        </div>
+
+        <!-- Instructions depend on visual position. -->
+        <div class="field">
+          <div>Describe your contribution in the box below.</div>
+          <textarea id="description"></textarea>
+        </div>
+
+        <!-- A checkbox is separated from its descriptive text. -->
+        <div class="field">
+          <input
+            id="license-agreement"
+            type="checkbox"
+            style="width:auto;"
+          >
+          I agree to the contributor license terms.
+        </div>
+
+        <!-- Validation feedback will not be associated with specific fields. -->
+        <div id="error-message" class="error">
+          Some information is missing. Correct the fields in red.
+        </div>
+
+        <!-- A div is used as a button and only responds to mouse clicks. -->
+        <div class="button" onclick="submitContribution()">
+          Submit contribution
+        </div>
+
+        <div
+          class="button secondary"
+          onclick="openGuidelines()"
+        >
+          View guidelines
+        </div>
+      </form>
+    </div>
+
+    <div class="sidebar">
+      <div class="section-title" style="margin-top:0;">
+        Resources
+      </div>
+
+      <p><a href="README.html">README</a></p>
+      <p><a href="api.html">Learn more</a></p>
+      <p><a href="setup.html">Click here</a></p>
+
+      <!-- The image has no alt attribute. -->
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='100'%3E%3Crect width='220' height='100' fill='%23eeeeee'/%3E%3Cpath d='M20 73 L65 35 L105 58 L150 20 L200 46' fill='none' stroke='%23154734' stroke-width='5'/%3E%3C/svg%3E"
+        width="220"
+        height="100"
+      >
+
+      <p class="small-text">
+        Monthly project activity is shown in the chart above.
+      </p>
+    </div>
+  </div>
+
+  <!-- The dialog has no dialog semantics or accessible name. -->
+  <div id="modal-backdrop" class="modal-backdrop">
+    <div class="modal">
+      <div class="close" onclick="closeGuidelines()">×</div>
+
+      <div class="section-title" style="margin-top:0;">
+        Contribution guidelines
+      </div>
+
+      <p>
+        Fork the repository, make your changes, and submit a pull request.
+      </p>
+
+      <p>
+        Make sure all tests pass before requesting review.
+      </p>
+
+      <div class="button" onclick="closeGuidelines()">Got it</div>
+    </div>
+  </div>
+
+  <script>
+    function goTo(section) {
+      alert("Opening " + section);
+    }
+
+    function submitContribution() {
+      const name = document.getElementById("contributor-name");
+      const email = document.getElementById("email");
+      const description = document.getElementById("description");
+      const error = document.getElementById("error-message");
+
+      error.style.display = "none";
+
+      name.style.borderColor = "#aaa";
+      email.style.borderColor = "#aaa";
+      description.style.borderColor = "#aaa";
+
+      let hasError = false;
+
+      if (!name.value) {
+        name.style.borderColor = "red";
+        hasError = true;
+      }
+
+      if (!email.value) {
+        email.style.borderColor = "red";
+        hasError = true;
+      }
+
+      if (!description.value) {
+        description.style.borderColor = "red";
+        hasError = true;
+      }
+
+      if (hasError) {
+        error.style.display = "block";
+      } else {
+        alert("Contribution submitted!");
+      }
+    }
+
+    function openGuidelines() {
+      document.getElementById("modal-backdrop").style.display = "flex";
+    }
+
+    function closeGuidelines() {
+      document.getElementById("modal-backdrop").style.display = "none";
+    }
+  </script>
+</body>
+</html>
