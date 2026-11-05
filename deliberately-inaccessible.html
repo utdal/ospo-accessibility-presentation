@@ -8,7 +8,9 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      color: #777;
+      /* FIXED: #777 on white was 4.47:1, just under the 4.5:1 AA minimum.
+         #333 is 12.6:1. */
+      color: #333;
       background: #fff;
     }
 
@@ -89,7 +91,10 @@
       box-sizing: border-box;
       width: 100%;
       padding: 9px;
-      border: 1px solid #aaa;
+      /* FIXED: Field borders need 3:1 against the background (WCAG 1.4.11
+         non-text contrast). #aaa was 2.32:1; #767676 is 4.54:1.
+         Note: axe-core does not check this one. */
+      border: 1px solid #767676;
     }
 
     textarea {
@@ -106,13 +111,16 @@
     .button {
       display: inline-block;
       padding: 10px 18px;
-      color: white;
+      /* FIXED: White on orange was 3.01:1. Keeping the brand orange and
+         switching to black text gives 6.98:1. */
+      color: #000;
       background: #e87500;
       cursor: pointer;
     }
 
     .secondary {
-      color: #777;
+      /* FIXED: #777 on #ddd was 3.29:1; #333 on #ddd is 9.3:1. */
+      color: #333;
       background: #ddd;
     }
 
@@ -123,7 +131,8 @@
     }
 
     .help {
-      color: #aaa;
+      /* FIXED: #aaa on white was 2.32:1; #595959 is 7:1. */
+      color: #595959;
       font-size: 12px;
     }
 
@@ -151,7 +160,10 @@
     }
 
     a {
-      color: #777;
+      /* FIXED: #777 links were 4:1 on the grey sidebar. The brand green is
+         10.6:1 on white and 9.5:1 on #f2f2f2. Links stay underlined, so
+         they don't rely on color alone. */
+      color: #154734;
     }
 
     .small-text {
@@ -325,9 +337,9 @@
 
       error.style.display = "none";
 
-      name.style.borderColor = "#aaa";
-      email.style.borderColor = "#aaa";
-      description.style.borderColor = "#aaa";
+      name.style.borderColor = "#767676";
+      email.style.borderColor = "#767676";
+      description.style.borderColor = "#767676";
 
       let hasError = false;
 
