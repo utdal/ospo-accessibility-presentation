@@ -8,10 +8,13 @@ It contains a small web page for a fictional open source project, **OpenLab**, t
 
 > **The `main` branch is broken on purpose.** Its accessibility check is expected to fail. The fixes live in open pull requests and are not meant to be merged.
 
+**[Try the live demo pages](https://utdal.github.io/ospo-accessibility-presentation/)** to compare the original page with each fix in your browser.
+
 ## How this repository works
 
 - [`deliberately-inaccessible.html`](deliberately-inaccessible.html) on `main` is the "before" version. HTML comments mark each problem.
 - Every fix is a separate branch created from `main`, with one open pull request. Each pull request changes only what that fix needs, and comments starting with `FIXED:` explain why.
+- A [deployment workflow](.github/workflows/pages.yml) publishes `main` and every `fix/*` branch to GitHub Pages, each in its own folder.
 - A [GitHub Actions workflow](.github/workflows/accessibility.yml) runs [axe-core](https://github.com/dequelabs/axe-core) on every push and pull request. Open a pull request's **Checks** tab and choose the job summary to see which rules still fail.
 
 ## The fixes
