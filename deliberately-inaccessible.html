@@ -83,6 +83,15 @@
       margin-bottom: 16px;
     }
 
+    /* Labels sit above their fields, like the old div text did. */
+    .field label {
+      display: block;
+    }
+
+    .field .inline-label {
+      display: inline;
+    }
+
     input,
     select,
     textarea {
@@ -204,27 +213,33 @@
       <p>Fields marked in red are required.</p>
 
       <form id="contribution-form">
-        <!-- Placeholder text is used instead of a label. -->
+        <!-- FIXED: A visible <label> replaces the placeholder. Placeholders
+             vanish while typing, are often low contrast, and aren't a
+             reliable accessible name. -->
         <div class="field">
+          <label for="contributor-name">Your name</label>
           <input
             id="contributor-name"
             type="text"
-            placeholder="Your name"
             style="border-color: red;"
           >
         </div>
 
-        <!-- This text looks like a label but is not associated with the field. -->
+        <!-- FIXED: <label for> programmatically ties the text to the field
+             (and clicking the label focuses it). aria-describedby makes
+             screen readers also read the help text. -->
         <div class="field">
-          <div>Email address</div>
-          <input id="email" type="text">
-          <div class="help">
+          <label for="email">Email address</label>
+          <input id="email" type="text" aria-describedby="email-help">
+          <div id="email-help" class="help">
             We may contact you if the maintainers have questions.
           </div>
         </div>
 
-        <!-- No accessible label identifies this select element. -->
+        <!-- FIXED: The select now has a visible, associated label. The first
+             option is a prompt, not a name. -->
         <div class="field">
+          <label for="contribution-type">Contribution type</label>
           <select id="contribution-type">
             <option value="">Select contribution type</option>
             <option>Bug fix</option>
@@ -234,20 +249,24 @@
           </select>
         </div>
 
-        <!-- Instructions depend on visual position. -->
+        <!-- FIXED: A real label replaces position-dependent instructions
+             ("in the box below" means nothing to a screen reader). -->
         <div class="field">
-          <div>Describe your contribution in the box below.</div>
+          <label for="description">Describe your contribution</label>
           <textarea id="description"></textarea>
         </div>
 
-        <!-- A checkbox is separated from its descriptive text. -->
+        <!-- FIXED: The checkbox text is now its label, so it's announced
+             with the checkbox and clicking the text toggles it. -->
         <div class="field">
           <input
             id="license-agreement"
             type="checkbox"
             style="width:auto;"
           >
-          I agree to the contributor license terms.
+          <label for="license-agreement" class="inline-label">
+            I agree to the contributor license terms.
+          </label>
         </div>
 
         <!-- Validation feedback will not be associated with specific fields. -->
