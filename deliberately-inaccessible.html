@@ -29,9 +29,22 @@
       display: inline-block;
     }
 
+    /* Reset default list styling so the semantic list looks unchanged. */
+    .nav ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav li {
+      display: inline-block;
+    }
+
     .nav-item {
       display: inline-block;
       margin-right: 18px;
+      color: white;
+      text-decoration: none;
       cursor: pointer;
     }
 
@@ -55,6 +68,12 @@
       width: 250px;
       padding: 18px;
       background: #f2f2f2;
+    }
+
+    /* Reset default heading margins so semantic headings look unchanged. */
+    h1,
+    h2 {
+      margin: 0;
     }
 
     .title {
@@ -163,22 +182,27 @@
 <body>
   <!-- No skip link is provided. -->
 
-  <div class="header">
+  <!-- FIXED: <header> creates a "banner" landmark. -->
+  <header class="header">
     <div class="logo">OpenLab</div>
 
-    <!-- These navigation controls are nonsemantic div elements. -->
-    <div class="nav">
-      <div class="nav-item" onclick="goTo('project')">Project</div>
-      <div class="nav-item" onclick="goTo('docs')">Documentation</div>
-      <div class="nav-item" onclick="goTo('issues')">Issues</div>
-      <div class="nav-item" onclick="goTo('contribute')">Contribute</div>
-    </div>
-  </div>
+    <!-- FIXED: <nav> creates a "navigation" landmark; a list announces
+         "list, 4 items"; real links are focusable and keyboard operable. -->
+    <nav class="nav" aria-label="Main">
+      <ul>
+        <li><a class="nav-item" href="#project">Project</a></li>
+        <li><a class="nav-item" href="#docs">Documentation</a></li>
+        <li><a class="nav-item" href="#issues">Issues</a></li>
+        <li><a class="nav-item" href="#contribute">Contribute</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <div class="layout">
-    <div class="main">
-      <!-- Visual headings are divs, not actual heading elements. -->
-      <div class="title">OpenLab Data Toolkit</div>
+    <!-- FIXED: <main> creates a "main" landmark. -->
+    <main class="main">
+      <!-- FIXED: Real heading elements build a navigable outline. -->
+      <h1 class="title">OpenLab Data Toolkit</h1>
 
       <p>
         OpenLab is an open source toolkit for organizing and sharing
@@ -191,7 +215,7 @@
         before submitting a change.
       </p>
 
-      <div class="section-title">Project status</div>
+      <h2 class="section-title">Project status</h2>
 
       <!-- Status is communicated through color alone. -->
       <p>
@@ -199,7 +223,7 @@
         Documentation <span class="status-dot" style="background:#d7191c;"></span>
       </p>
 
-      <div class="section-title">Submit a contribution</div>
+      <h2 class="section-title">Submit a contribution</h2>
 
       <p>Fields marked in red are required.</p>
 
@@ -267,12 +291,13 @@
           View guidelines
         </div>
       </form>
-    </div>
+    </main>
 
-    <div class="sidebar">
-      <div class="section-title" style="margin-top:0;">
+    <!-- FIXED: <aside> creates a "complementary" landmark. -->
+    <aside class="sidebar" aria-labelledby="resources-heading">
+      <h2 id="resources-heading" class="section-title" style="margin-top:0;">
         Resources
-      </div>
+      </h2>
 
       <p><a href="README.html">README</a></p>
       <p><a href="api.html">Learn more</a></p>
@@ -288,7 +313,7 @@
       <p class="small-text">
         Monthly project activity is shown in the chart above.
       </p>
-    </div>
+    </aside>
   </div>
 
   <!-- The dialog has no dialog semantics or accessible name. -->
@@ -313,10 +338,6 @@
   </div>
 
   <script>
-    function goTo(section) {
-      alert("Opening " + section);
-    }
-
     function submitContribution() {
       const name = document.getElementById("contributor-name");
       const email = document.getElementById("email");
