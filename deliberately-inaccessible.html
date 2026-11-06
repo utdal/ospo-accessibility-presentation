@@ -70,13 +70,13 @@
       font-weight: bold;
     }
 
-    .status-dot {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-right: 5px;
-      border-radius: 50%;
-      background: #35a853;
+    .status-list {
+      padding: 0;
+      list-style: none;
+    }
+
+    .status-list li {
+      margin-bottom: 6px;
     }
 
     .field {
@@ -193,11 +193,14 @@
 
       <div class="section-title">Project status</div>
 
-      <!-- Status is communicated through color alone. -->
-      <p>
-        API <span class="status-dot"></span>
-        Documentation <span class="status-dot" style="background:#d7191c;"></span>
-      </p>
+      <!-- FIXED: Status is shown three ways: text, icon shape (check vs. X),
+           and color. The emoji are aria-hidden because screen readers
+           announce them inconsistently ("check mark button") and the text
+           already says it. A list announces "list, 2 items". -->
+      <ul class="status-list">
+        <li><span aria-hidden="true">✅</span> API: Operational</li>
+        <li><span aria-hidden="true">❌</span> Documentation: Outdated</li>
+      </ul>
 
       <div class="section-title">Submit a contribution</div>
 
